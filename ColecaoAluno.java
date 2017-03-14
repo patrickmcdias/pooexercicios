@@ -1,3 +1,5 @@
+package poopatrick;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -13,19 +15,36 @@ public class ColecaoAluno {
 		alunos.add(al);
 	}
 
-	public void salvarArquivo(ArrayList<Aluno> alunos) throws FileNotFoundException, IOException {
-		ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(
-				"Aluno"));
-		out.writeObject(alunos);
-		
+	public int salvarArquivo() {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream("aluno.txt"));
+			out.writeObject(alunos);
+			out.close();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return -1;
+		}
+
 	}
 
-	public void carregarArquivo() throws FileNotFoundException, IOException,
-			ClassNotFoundException {
-		ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-				"Aluno"));
-
-		ArrayList al = (ArrayList) in.readObject();
+	public ArrayList <Aluno> carregarArquivo() {
+		ArrayList a = new ArrayList();
+		try {
+			FileInputStream in = new FileInputStream("aluno.txt");
+			ObjectInputStream objIn = new ObjectInputStream(in);
+		
+			 a = (ArrayList) objIn.readObject();
+				objIn.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return a;
 	}
 
 }

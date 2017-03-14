@@ -1,3 +1,4 @@
+package poopatrick;
 import java.io.Serializable;
 
 public class Aluno implements Serializable{
